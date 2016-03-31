@@ -3,4 +3,22 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorMainUrl">#868686</color>
+    <color name="colorMainSubTitle">#E3EBF1</color>
+    <color name="colorMainSubTitleText">#364373</color>
+    <color name="colorMainEditButton">#4762C6</color>
+
+
+    <color name="colorRegBackground">#FAFAFA</color>
+
+    <color name="colorActionBar">#4762C6</color>
+    <color name="colorRegSubTitle">#E3EBF1</color>
+    <color name="colorRegSubTitleText">#364373</color>
+    <color name="colorRegNormalText">#444444</color>
+    <color name="colorRegExplainTitle">#898989</color>
+
+    <color name="colorRegDialogTitle">#364DA1</color>
+
+    <color name="color">#444444</color>
 </resources>
