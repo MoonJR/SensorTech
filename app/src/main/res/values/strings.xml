@@ -1,3 +1,5 @@
 <resources>
+
+    <string name="app_bluetooth_spp_id">000011001-0000-1000-8000-00805F9B34FB</string>
     <string name="app_name">SensorTech</string>
 </resources>

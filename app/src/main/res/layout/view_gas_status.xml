@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="1dp"
+    android:background="@drawable/sensor_status_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textViewDeviceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorMainSubTitleText"
+            android:gravity="center_vertical"
+            android:minHeight="42dp"
+            android:padding="10dp"
+            android:text="1. Apple"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:id="@+id/layoutGasStatus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="13dp"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="검출물질"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textViewDetectObject"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="없음"
+                    android:textColor="@color/colorRegNormalText"
+                    android:textSize="25sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewGasStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:gravity="center"
+                        android:text="정상"
+                        android:textSize="17sp" />
+
+                    <ImageView
+                        android:id="@+id/imageViewDeviceStatus0"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_margin="2dp"
+                        android:gravity="center"
+                        android:src="@drawable/ic_sense_state01" />
+
+                    <ImageView
+                        android:id="@+id/imageViewDeviceStatus1"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_margin="2dp"
+                        android:gravity="center"
+                        android:src="@drawable/ic_sense_state01" />
+
+                    <ImageView
+                        android:id="@+id/imageViewDeviceStatus2"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="13dp"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+
+                        android:src="@drawable/ic_sense_state01" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageViewDeviceStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_sense_linkstate01"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imageButtonAdd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:gravity="center"
+        android:src="@drawable/btn_sense_add"
+        android:visibility="gone" />
+
+</LinearLayout>
