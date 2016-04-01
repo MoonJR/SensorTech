@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="선택한 선세 모듈의 안내 메시"
+                    android:text="선택한 센서 모듈의 안내 메시지"
                     android:textColor="@color/colorRegExplainTitle" />
 
                 <TextView

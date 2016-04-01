@@ -170,11 +170,11 @@ public class SensorTechBluetoothConnector {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            Log.d("yeonBlueTooth", "<--onServicesDiscovered-->");
+            Log.d("yeonBlueTooth", "<--onCharacteristicChanged-->");
             if (listener != null) {
                 listener.onReadData(characteristic.getValue());
             }
-            Log.d("yeonBlueTooth", "<--onServicesDiscovered-->");
+            Log.d("yeonBlueTooth", "<--onCharacteristicChanged-->");
 
         }
 
