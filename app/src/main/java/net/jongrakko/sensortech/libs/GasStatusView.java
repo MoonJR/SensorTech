@@ -173,7 +173,6 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
                     modeAddDevice();
                 } else {
                     modeConnectState03();
-
                 }
             }
         });
@@ -233,6 +232,9 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
                         modeDeviceStatus1();
                         break;
                     case 2:
+                        modeDeviceStatus2();
+                        break;
+                    default:
                         modeDeviceStatus2();
                         break;
                 }

@@ -9,6 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -125,6 +128,28 @@ public class RegActivity extends AppCompatActivity implements OnBluetoothListene
             changeDeviceNameDialog.setCancelable(false);
         }
         final View inputView = getLayoutInflater().inflate(R.layout.dialog_change_device_name, null, false);
+
+        ((EditText) inputView.findViewById(R.id.editTextDeviceName)).addTextChangedListener(new TextWatcher() {
+            CharSequence beforeText = null;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                beforeText = s;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0 && s.charAt(s.length() - 1) > Byte.MAX_VALUE) {
+                    s.clear();
+                    ((EditText) inputView.findViewById(R.id.editTextDeviceName)).setError("영문과 숫자 일부 특수문자만 입력 가능합니다.");
+                }
+            }
+        });
         final AlertDialog inputDialog = new AlertDialog.Builder(getContext())
                 .setIcon(R.mipmap.ic_launcher)
                 .setView(inputView).create();
@@ -134,6 +159,9 @@ public class RegActivity extends AppCompatActivity implements OnBluetoothListene
                 final String changeDeviceName = ((EditText) inputView.findViewById(R.id.editTextDeviceName)).getText().toString();
                 if (changeDeviceName.equals("")) {
                     ((EditText) inputView.findViewById(R.id.editTextDeviceName)).setError("변경할 이름을 입력해 주세요.");
+                    return;
+                } else if (changeDeviceName.length() > 20) {
+                    ((EditText) inputView.findViewById(R.id.editTextDeviceName)).setError("장치명은 최대 20글자를 초과할 수 없습니다.");
                     return;
                 }
                 inputDialog.dismiss();

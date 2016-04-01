@@ -21,4 +21,14 @@
     <color name="colorRegDialogTitle">#364DA1</color>
 
     <color name="color">#444444</color>
+
+    <color name="buttonOn1">#A64762C6</color>
+    <color name="buttonOn2">#FF4762C6</color>
+    <color name="buttonOn3">#A6565B6F</color>
+    <color name="buttonOn4">#A61C3AAC</color>
+    <color name="buttonOff1">#FF4762C6</color>
+    <color name="buttonOff2">#FF4762C6</color>
+    <color name="buttonOff3">#FF565B6F</color>
+    <color name="buttonOff4">#FF1C3AAC</color>
+
 </resources>
