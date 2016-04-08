@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -140,4 +141,19 @@ public class MainActivity extends AppCompatActivity implements BluetoothManager.
     public void onClick(View v) {
         showEditDialog();
     }
+
+    private long backKeyPressedTime;
+
+    public void onBackPressed() {
+        long now = System.currentTimeMillis();
+        if (now > backKeyPressedTime + 2000) {
+            backKeyPressedTime = now;
+            Toast.makeText(getContext(), "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (now <= backKeyPressedTime + 2000) {
+            super.onBackPressed();
+        }
+    }
+
 }

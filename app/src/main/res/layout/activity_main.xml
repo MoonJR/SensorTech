@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="현재 등록된 센서모 목록"
+            android:text="현재 등록된 센서모듈 목록"
             android:textColor="@color/colorMainSubTitleText" />
 
         <Button

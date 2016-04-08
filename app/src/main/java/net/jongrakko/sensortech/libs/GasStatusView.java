@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayout;
@@ -109,6 +111,9 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
         mImageViewDeviceStatus.setVisibility(VISIBLE);
         mImageViewDeviceStatus.setImageResource(R.drawable.ic_sense_linkstate02);
         mImageViewDeviceStatus.setOnClickListener(null);
+        if (mImageViewDeviceStatus.getDrawable() instanceof AnimationDrawable) {
+            ((AnimationDrawable) mImageViewDeviceStatus.getDrawable()).start();
+        }
     }
 
     private void modeConnectState03() {
@@ -134,6 +139,9 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
     }
 
     private void modeConnected() {
+        if (mImageViewDeviceStatus.getDrawable() instanceof AnimationDrawable) {
+            ((AnimationDrawable) mImageViewDeviceStatus.getDrawable()).stop();
+        }
         findViewById(R.id.layoutGasStatus).setVisibility(VISIBLE);
         mImageViewDeviceStatus.setVisibility(GONE);
     }
@@ -217,10 +225,17 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
     @Override
     public void onReadData(final byte[] data) {
         mCheckTimeoutThread.setRead(true);
+        if (data.length == 14) {
+            mGasSensorModel.setData(data);
+            notifyData();
+        }
+    }
+
+    private void notifyData() {
         post(new Runnable() {
             @Override
             public void run() {
-                mGasSensorModel.setData(data);
+                mTextViewDeviceName.setText(mGasSensorModel.getDeviceTitle());
                 mTextViewGasStatus.setText(mGasSensorModel.getStatusString());
                 mTextViewDetectObject.setText(mGasSensorModel.getMaterialString());
 
@@ -241,6 +256,7 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
             }
         });
     }
+
 
     @Override
     public void onError() {
