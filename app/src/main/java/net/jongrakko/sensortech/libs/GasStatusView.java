@@ -3,14 +3,8 @@ package net.jongrakko.sensortech.libs;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayout;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,11 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import net.jongrakko.sensortech.GasSensorModel;
+import net.jongrakko.sensortech.model.GasSensorModel;
 import net.jongrakko.sensortech.R;
-import net.jongrakko.sensortech.RegActivity;
-
-import java.util.Arrays;
+import net.jongrakko.sensortech.activity.RegActivity;
 
 /**
  * Created by MoonJongRak on 2016. 3. 19..
