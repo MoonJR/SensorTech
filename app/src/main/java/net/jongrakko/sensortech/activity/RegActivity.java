@@ -1,4 +1,4 @@
-package net.jongrakko.sensortech;
+package net.jongrakko.sensortech.activity;
 
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
@@ -11,11 +11,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import net.jongrakko.sensortech.model.GasSensorModel;
+import net.jongrakko.sensortech.R;
 import net.jongrakko.sensortech.adapter.RecyclerRegAdapter;
 import net.jongrakko.sensortech.libs.BluetoothManager;
 import net.jongrakko.sensortech.libs.BluetoothManager.OnBluetoothListener;

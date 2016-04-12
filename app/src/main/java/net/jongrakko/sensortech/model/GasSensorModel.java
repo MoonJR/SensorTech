@@ -1,4 +1,4 @@
-package net.jongrakko.sensortech;
+package net.jongrakko.sensortech.model;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -125,7 +125,7 @@ public class GasSensorModel {
         this.material = data[4];
         this.status = data[5];
         this.temperature = data[6] + data[7] / 100f;
-        this.humid = data[9] + data[9] / 100f;
+        this.humid = data[9] + data[10] / 100f;
     }
 
     public static boolean regDevice(Context context, BluetoothDevice device) {
@@ -165,7 +165,7 @@ public class GasSensorModel {
     }
 
     public String getDeviceTitle() {
-        return bluetoothDevice != null && bluetoothDevice.getName() != null ? (index + 1) + ". " + bluetoothDevice.getName() : (index + 1) + ". " + "알 수 없음";
+        return bluetoothDevice != null && bluetoothDevice.getName() != null ? (index + 1) + ". " + bluetoothDevice.getName() : (index + 1) + ". " + "장치명 모름";
     }
 
     public int getIndex() {

@@ -1,4 +1,4 @@
-package net.jongrakko.sensortech;
+package net.jongrakko.sensortech.activity;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -6,17 +6,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.Toast;
 
+import net.jongrakko.sensortech.model.GasSensorModel;
+import net.jongrakko.sensortech.R;
 import net.jongrakko.sensortech.libs.BluetoothManager;
 import net.jongrakko.sensortech.libs.GasStatusView;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -140,4 +139,19 @@ public class MainActivity extends AppCompatActivity implements BluetoothManager.
     public void onClick(View v) {
         showEditDialog();
     }
+
+    private long backKeyPressedTime;
+
+    public void onBackPressed() {
+        long now = System.currentTimeMillis();
+        if (now > backKeyPressedTime + 2000) {
+            backKeyPressedTime = now;
+            Toast.makeText(getContext(), "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (now <= backKeyPressedTime + 2000) {
+            super.onBackPressed();
+        }
+    }
+
 }

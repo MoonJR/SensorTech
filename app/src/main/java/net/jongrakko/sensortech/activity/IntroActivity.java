@@ -1,4 +1,4 @@
-package net.jongrakko.sensortech;
+package net.jongrakko.sensortech.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import net.jongrakko.sensortech.R;
 
 public class IntroActivity extends AppCompatActivity implements View.OnClickListener {
 
