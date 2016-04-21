@@ -78,7 +78,7 @@ public class GasSensorModel {
             case 5:
                 return "파라티온";
             case 6:
-                return "말라티";
+                return "말라티온";
             case 10:
                 return "모의작용";
             case 11:

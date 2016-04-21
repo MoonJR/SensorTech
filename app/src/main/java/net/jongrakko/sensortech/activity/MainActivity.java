@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothManager.
         }
     }
 
-    private int selectedDeleteDevice = -1;
+    private int selectedDeleteDevice = 0;
 
     private void showEditDialog() {
         ArrayAdapter<String> deviceAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_single_choice);
@@ -124,13 +124,15 @@ public class MainActivity extends AppCompatActivity implements BluetoothManager.
         }).setPositiveButton("삭제", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                GasSensorModel.deleteRegDevice(getContext(), mGasStatusViews[selectedDeleteDevice].getGasSensorModel().getBluetoothDevice().getAddress());
-                setGasSensorModel();
+                if (selectedDeleteDevice > -1 && selectedDeleteDevice < mGasStatusViews.length) {
+                    GasSensorModel.deleteRegDevice(getContext(), mGasStatusViews[selectedDeleteDevice].getGasSensorModel().getBluetoothDevice().getAddress());
+                    setGasSensorModel();
+                }
             }
         }).setNegativeButton("취소", null).setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                selectedDeleteDevice = -1;
+                selectedDeleteDevice = 0;
             }
         }).setCancelable(false).setIcon(R.mipmap.ic_launcher).show();
     }
