@@ -29,6 +29,7 @@ public class GasSensorModel {
     private float temperature;
     private float humid;
     private BluetoothDevice bluetoothDevice;
+    private OnStatusChangeListener listener;
 
 
     public GasSensorModel(int index, BluetoothDevice bluetoothDevice) {
@@ -123,6 +124,11 @@ public class GasSensorModel {
 
     public void setData(byte[] data) {
         this.material = data[4];
+        if (this.status != data[5]) {
+            if (listener != null) {
+                listener.onStateChange(data[5]);
+            }
+        }
         this.status = data[5];
         this.temperature = data[6] + data[7] / 100f;
         this.humid = data[9] + data[10] / 100f;
@@ -170,6 +176,18 @@ public class GasSensorModel {
 
     public int getIndex() {
         return index;
+    }
+
+    public void setOnStatusChangeListener(OnStatusChangeListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnStatusChangeListener {
+        public static final int FLAG_STATUS_CHANGE_NORMAL = 0;
+        public static final int FLAG_STATUS_CHANGE_WARING = 1;
+        public static final int FLAG_STATUS_CHANGE_DANGER = 2;
+
+        public void onStateChange(int status);
     }
 
 }

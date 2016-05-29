@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import net.jongrakko.sensortech.model.GasSensorModel;
 import net.jongrakko.sensortech.R;
 import net.jongrakko.sensortech.activity.RegActivity;
+import net.jongrakko.sensortech.model.GasSensorModel;
 
 /**
  * Created by MoonJongRak on 2016. 3. 19..
  */
-public class GasStatusView extends LinearLayout implements View.OnClickListener, SensorTechBluetoothConnector.OnBluetoothConnectListener {
+public class GasStatusView extends LinearLayout implements View.OnClickListener, SensorTechBluetoothConnector.OnBluetoothConnectListener, GasSensorModel.OnStatusChangeListener {
 
     private GasSensorModel mGasSensorModel;
     private SensorTechBluetoothConnector mSensorTechBluetoothConnector;
@@ -31,12 +33,14 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
     private ImageView mImageViewDeviceStatus;
     private ImageButton mImageButtonAdd;
 
+    private SoundPool mSoundPool;
+    private int soundWaring;
+    private int soundDanger;
 
     public GasStatusView(Context context) {
         super(context);
         setLayout();
         init();
-
     }
 
     public void setGasSensorModel(GasSensorModel model) {
@@ -44,11 +48,8 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
         init();
     }
 
-
     public void setLayout() {
-
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
         setLayoutParams(params);
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = li.inflate(R.layout.view_gas_status, this, false);
@@ -59,6 +60,10 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
         mImageViewDeviceStatus = (ImageView) findViewById(R.id.imageViewDeviceStatus);
         mImageButtonAdd = (ImageButton) findViewById(R.id.imageButtonAdd);
         mImageButtonAdd.setOnClickListener(this);
+        mSoundPool = new SoundPool(2, AudioManager.STREAM_NOTIFICATION, 0);
+        soundWaring = mSoundPool.load(getContext(), R.raw.sound_waring, 1);
+        soundDanger = mSoundPool.load(getContext(), R.raw.sound_danger, 2);
+
     }
 
     private void init() {
@@ -67,7 +72,7 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
             modeAddDevice();
             return;
         }
-
+        mGasSensorModel.setOnStatusChangeListener(this);
         modeConnectDevice();
         mTextViewDeviceName.setText(mGasSensorModel.getDeviceTitle());
         mSensorTechBluetoothConnector = BluetoothManager.getBluetoothConnectThread(getContext(), mGasSensorModel.getBluetoothDevice());
@@ -159,7 +164,6 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
         ((ImageView) findViewById(R.id.imageViewDeviceStatus2)).setImageResource(R.drawable.ic_sense_state06);
     }
 
-
     public void close() {
         if (mSensorTechBluetoothConnector != null)
             mSensorTechBluetoothConnector.close();
@@ -249,7 +253,6 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
         });
     }
 
-
     @Override
     public void onError() {
         close();
@@ -268,6 +271,27 @@ public class GasStatusView extends LinearLayout implements View.OnClickListener,
                 break;
         }
     }
+
+    @Override
+    public void onStateChange(final int status) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                switch (status) {
+                    case GasSensorModel.OnStatusChangeListener.FLAG_STATUS_CHANGE_NORMAL:
+                        break;
+                    case GasSensorModel.OnStatusChangeListener.FLAG_STATUS_CHANGE_WARING:
+                        mSoundPool.play(soundWaring, 1.0F, 1.0F, 1, 0, 1.0F);
+                        break;
+                    case GasSensorModel.OnStatusChangeListener.FLAG_STATUS_CHANGE_DANGER:
+                        mSoundPool.play(soundDanger, 1.0F, 1.0F, 1, 0, 1.0F);
+                        break;
+                }
+            }
+        });
+
+    }
+
 
     private class CheckTimeoutThread extends Thread {
         boolean read;

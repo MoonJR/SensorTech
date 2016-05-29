@@ -3,6 +3,7 @@ package net.jongrakko.sensortech.activity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,15 +25,17 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity implements BluetoothManager.OnBluetoothStateChangeListener, View.OnClickListener {
 
     private BluetoothManager mBluetoothManager;
-    int[] layoutGasStatusIds = {R.id.layoutGasStatus0, R.id.layoutGasStatus1, R.id.layoutGasStatus2, R.id.layoutGasStatus3};
-    GasStatusView[] mGasStatusViews = new GasStatusView[4];
+    private int[] layoutGasStatusIds = {R.id.layoutGasStatus0, R.id.layoutGasStatus1, R.id.layoutGasStatus2, R.id.layoutGasStatus3};
+    private GasStatusView[] mGasStatusViews = new GasStatusView[4];
 
+    private AudioManager mAudioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mBluetoothManager = BluetoothManager.getInstance(getContext());
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         findViewById(R.id.buttonDeviceEdit).setOnClickListener(this);
         for (int i = 0; i < mGasStatusViews.length; i++) {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothManager.
 
     @Override
     protected void onResume() {
+        setVolumeMax();
         mBluetoothManager.setOnBluetoothStateChangeListener(this);
         setGasSensorModel();
         super.onResume();
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothManager.
 
     @Override
     protected void onPause() {
+        setVolumeDefault();
         closeGasSensor();
         super.onPause();
     }
@@ -154,6 +159,17 @@ public class MainActivity extends AppCompatActivity implements BluetoothManager.
         if (now <= backKeyPressedTime + 2000) {
             super.onBackPressed();
         }
+    }
+
+    private int defaultVolume;
+
+    private void setVolumeMax() {
+        defaultVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION), 0);
+    }
+
+    private void setVolumeDefault() {
+        mAudioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, defaultVolume, 0);
     }
 
 }
